@@ -1,0 +1,4 @@
+varCode,comment,template
+ranking_1_sent,TOTAL POPULATION,"{Current?:{Change1year?Between 2017 and 2018,:In the three years from 2015 to 2018,}}{firstPara? {ladName}:{Current?This area: this area}} {Current?has:saw} England's {ordinalSuffix} {Current?highest score for:{rankIsNegative?greatest decline:greatest improvement in}} {measure}."
+domain_1_sent,POPULATION CHANGE,"Barnet has a health index score of 100, the 32nd healthiest district in England."
+domain_2_sent,PROPORTION OVER 65,"Barnet's overall health has improved since scoring 99 in 2015."
