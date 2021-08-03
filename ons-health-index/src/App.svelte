@@ -10,14 +10,6 @@
 
 	
 	let options, selected, placeHealth, place, ew, quartiles, quartilesHealth;
-	let map = null;
-	let active = {
-		selected: null,
-		type: null,
-		childType: null,
-		highlighted: [],
-		hovered:  null
-	};
 	
 	getData(urls.options)
 	.then(res => {
@@ -44,14 +36,10 @@
 				.then(quart => {
 					quartiles = quart;
 					place = json;
-					updateActive(place);
-					fitMap(place.bounds);
 				});
 			} else {
 				quartiles = null;
 				place = json;
-				updateActive(place);
-				fitMap(place.bounds);
 			}
 		});
 	}
@@ -76,76 +64,7 @@
 			ew = json;
 		});
 	}
-	
-	function makeData(props) {
-		let code = props[0];
-		let val = props[1];
-		let year = props[2];
-		
-		let source = place.data[code][val][year];
-		let sourceEW = ew.data[code][val][year];
 
-		let keys = codes[code].map(d => d.code);
-		let labels = codes[code].map(d => d.label ? d.label : d.code);
-		let data = keys.map((key, i) => {
-			return {x: labels[i], y: source[key], ew: sourceEW[key]};
-		});
-		return data;
-	}
-
-	function updateActive(place)  {
-		let prev = JSON.parse(JSON.stringify(active));
-		let code = place.code;
-		let type = place.type;
-		let siblings = options.filter(d => d.type == type && d.code != code).map(d => d.code);
-		let children = place.children[0] ? place.children.map(d => d.code) : [];
-		let childType = children[0] ? place.children[0].type : null;
-
-		active.selected = code;
-		active.type = type;
-		active.childType = childType;
-		active.highlighted = [...siblings, ...children];
-
-		let keys = Object.keys(mapLayers);
-		let fillProps = ['fill-color', 'fill-opacity'];
-		let lineProps = ['line-color', 'line-width', 'line-opacity'];
-
-		// Change layer visibility and paint properties if geography level changes
-		if (map && active.type != prev.type) {
-			// Reset map layer visibility properties
-			keys.forEach(key => {
-				map.setLayoutProperty(key + '-fill', 'visibility', 'none');
-				map.setLayoutProperty(key + '-bounds', 'visibility', 'none');
-				map.setLayoutProperty(key + '-self', 'visibility', 'none');
-			});
-
-			// Set new visibility and paint properties
-			map.setLayoutProperty(type + '-fill', 'visibility', 'visible');
-			map.setLayoutProperty(type + '-bounds', 'visibility', 'visible');
-			map.setLayoutProperty(type + '-self', 'visibility', 'visible');
-			lineProps.forEach(prop => map.setPaintProperty(type + '-self', prop, mapPaint['line-self'][prop]));
-				
-			if (place.parents[0]) {
-				fillProps.forEach(prop => map.setPaintProperty(type + '-fill', prop, mapPaint[children[0] ? 'fill-active' : 'fill-self'][prop]));
-				lineProps.forEach(prop => map.setPaintProperty(type + '-bounds', prop, mapPaint['line-active'][prop]));
-			}
-			if (childType) {
-				map.setLayoutProperty(childType + '-fill', 'visibility', 'visible');
-				map.setLayoutProperty(childType + '-bounds', 'visibility', 'visible');
-				fillProps.forEach(prop => map.setPaintProperty(childType + '-fill', prop, mapPaint['fill-child'][prop]));
-				lineProps.forEach(prop => map.setPaintProperty(childType + '-bounds', prop, mapPaint['line-child'][prop]));
-			}
-		}
-	}
-	function fitMap(bounds) {
-		if (map) {
-			map.fitBounds(bounds, {padding: 20});
-		}
-	}
-	function mapSelect(ev) {
-		selected = options.find(d => d.code == ev.detail.code);
-		loadArea(selected.code);
-	}
 </script>
 
 <Warning/>
@@ -164,7 +83,7 @@
 	
 <div class="grid-2">
 	<div>
-		<span class="text-big">Health Index:  {place.name}</span><br/>
+		<span class="text-big">Health Index:  {placeHealth.name}</span><br/>
 		{#if place.parents[0]}
 		{types[place.type].name} in {place.parents[place.parents.length - 1].name}
 		{/if}

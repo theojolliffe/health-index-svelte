@@ -1,5 +1,5 @@
 export const urls = {
-		options: 'https://raw.githubusercontent.com/ONSvisual/census-data/main/csv/lists/places_2020.csv',
+		options: 'https://raw.githubusercontent.com/theojolliffe/healthindexlads/main/csv/includedHealthAreas.csv',
 		places: 'https://raw.githubusercontent.com/ONSvisual/census-data/main/json/place/',
 		healthplaces: 'https://raw.githubusercontent.com/theojolliffe/healthindexlads/main/',
 		quantiles: 'https://raw.githubusercontent.com/ONSvisual/census-data/main/json/quantiles/quartiles_'
