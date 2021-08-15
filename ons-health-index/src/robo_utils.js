@@ -16,11 +16,8 @@ function sentGenerator(place, section, topics, pNum) {
     for (let i = 0; i < topics.length; i++)  {
         dataSelect = dataSelect[topics[i]]
     }
-    console.log("data select", dataSelect)
-    console.log("Is year change", isXYearChange(dataSelect, topics, "Change3year"))
 
     let measure = topicify(dataSelect, topics)
-    console.log("Topic", measure)
 
     let roboString = healthRoboStrings["ranking_1_sent"]
     let roboSentence = robojournalist(roboString, {
@@ -36,8 +33,6 @@ function sentGenerator(place, section, topics, pNum) {
         measure: measure,
         intro: intro,
     })
-
-     console.log("roboSentence", roboSentence)
 
     return roboSentence;
 }
@@ -83,10 +78,6 @@ function sentGenerator2(place, pNum, topics) {
     // determine if current or change is higher rank
     let currentChange = currentOrChange(place, topics)
 
-    console.log("dataSelect", dataSelect["Rank"])
-
-
-
 
     let highLowRank;
     let highLowRankType;
@@ -130,7 +121,6 @@ function sentGenerator2(place, pNum, topics) {
         measure: place['priority2018'][highLow][pNum]['Measure'].toLowerCase(),
     })
 
-    console.log("currentChange", currentChange)
     let sentence = place.name + " has seen the UK's " + rankify(place, topics, currentChange, dataSelect) +  " " + changify(currentChange) + " in "  + topicify(place, topics, currentChange) + "."
 
     return  " ";

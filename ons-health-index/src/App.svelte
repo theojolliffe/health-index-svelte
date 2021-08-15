@@ -3,14 +3,11 @@
 	import { urls, types, codes, mapSources, mapLayers, mapPaint } from "./config";
 	import Select from "./ui/Select.svelte";
 	import Warning from "./ui/Warning.svelte";
-	import Map from "./map/Map.svelte";
-	import MapSource from "./map/MapSource.svelte";
-	import MapLayer from "./map/MapLayer.svelte";
+	import Text from './Text.svelte'
 	import { sentGenerator, sentGenerator2 } from './robo_utils.js';
-
 	
 	let options, selected, placeHealth, place, ew, quartiles, quartilesHealth;
-	
+
 	getData(urls.options)
 	.then(res => {
 		res.forEach(d => {
@@ -54,7 +51,6 @@
 			console.log("Place Health", placeHealth) 
 		 });
 	}
-
 	function loadEW() {
 		const code = 'K04000001';
 		fetch(urls.places + code + '.json')
@@ -95,9 +91,13 @@
 	</div>
 </div>
 
+
 <div class="profile-grid mt">
 
 	<br/>
+
+	<Text place={placeHealth}></Text>
+	<hr>
 	
 	<div>
 		<h3>
