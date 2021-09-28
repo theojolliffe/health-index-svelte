@@ -10,11 +10,24 @@
         let pos = place.priority2018.Highest.map(e => { e['pos'] = 'improvement'; return e });
         let neg = place.priority2018.Lowest.map(e => { e['pos'] = 'decline'; return e });
         let priorities = pos.concat(neg)
-        let subDomains = priorities.filter(e => { return (e['Index level']=="Subdomain") }); 
+        let subDomains = priorities.filter(e => { 
+            return ((e['Index level']=="Subdomain")&(e['Measure']!="Unemployment")) 
+        });
+        let imprDecl = []
         subDomains.sort(function(a, b) { return a.hlRank - b.hlRank })
         console.log('place', place)
         console.log('subDomains', subDomains)
-
+        for (const s of subDomains) {
+            if (s.hlRankType == 'Rank') {
+                if (s.Change3year<0) {
+                    imprDecl.push('decline')
+                } else {
+                    imprDecl.push('improvement')
+                }
+            } else {
+                imprDecl.push(s.pos)
+            }
+        }
         function indicatorRank(obj) {
             let indis = []
             for (let i = 0; i < subDomains.length; i++) { 
@@ -22,15 +35,20 @@
                 let objArr = []; for (const [key, value] of Object.entries(objTemp)) {
                     value['indi'] = key
                     objArr.push({}); objArr[objArr.length-1] = value }
-                objArr.sort(function(a, b) { return b[2018].Change3year - a[2018].Change3year })
+                objArr.sort(function(a, b) { 
+                    if (subDomains[i].hlRankType=="Change1year Rank") { return b[2018].Change1year - a[2018].Change1year 
+                    } else { return b[2018].Change3year - a[2018].Change3year }
+                })
                 indis.push(objArr) }
             return indis }
+        console.log("indicatorRank(place.data)", indicatorRank(place.data))
 
         let res = rosaenlg_en_US.render(strings, {
             language: 'en_UK',
             place: place,
             subDomain: subDomains,
-            negs: ['smoking', 'anxiety'],
+            negs: ['smoking', 'anxiety', 'alcohol misuse', 'neighbourhood noise', 'air pollution', 'depression', 'self-harm', 'suicides'],
+            imprDecl: imprDecl,
             indicators: indicatorRank(place.data)
         });
         return res 

@@ -193,7 +193,7 @@
 	}
 
 	.profile-grid {
-		width: 70%;
+		width: 40%;
 		justify-content: stretch;
 		margin-left: auto;
 	    margin-right: auto;
