@@ -99,64 +99,6 @@
 	<Text place={placeHealth}></Text>
 	<hr>
 	
-	<div>
-		<h3>
-			Health index: {placeHealth.data["Overall"].total[2018].value}
-		</h3>
-	</div>
-	<div>
-		<p>{sentGenerator(placeHealth, "Domain", ["data", "Overall", "total", "2018"], 0)}</p>
-	</div>
-
-	<div>
-		<h4>
-			Healthy Lives: {placeHealth.data["Healthy Lives"].total[2018].value}
-		</h4>
-	</div>
-	<div>
-		<p>{sentGenerator(placeHealth, "Domain", ["data", "Healthy Lives", "total", "2018"], 1)}</p>
-	</div>
-
-	<div>
-		<h4>
-			Healthy People: {placeHealth.data["Healthy People"].total[2018].value}
-		</h4>
-	</div>
-	<div>
-		<p>{sentGenerator(placeHealth, "Domain", ["data", "Healthy People", "total", "2018"], 2)}</p>
-	</div>
-
-	<div>
-		<h4>
-			Healthy Places: {placeHealth.data["Healthy Places"].total[2018].value}
-		</h4>
-	</div>
-	<div>
-		<p>{sentGenerator(placeHealth, "Domain", ["data", "Healthy Places", "total", "2018"], 3)}</p>
-	</div>
-
-	<hr>
-
-	<div>
-		<p>{sentGenerator(placeHealth, "Ranks",  ["priority2018", "Highest", 0], 0)}</p>
-	</div>
-	<div>
-		<p>{sentGenerator(placeHealth, "Ranks",  ["priority2018", "Highest", 1], 1)}</p>
-	</div>
-	<div>
-		<p>{sentGenerator(placeHealth, "Ranks",  ["priority2018", "Highest", 2], 2)}</p>
-	</div>
-	<div>
-		<p>{sentGenerator(placeHealth, "Ranks",  ["priority2018", "Lowest", 3], 3)}</p>
-	</div>
-	<div>
-		<p>{sentGenerator(placeHealth, "Ranks",  ["priority2018", "Lowest", 4], 4)}</p>
-	</div>
-	<div>
-		<p>{sentGenerator(placeHealth, "Ranks",  ["priority2018", "Lowest", 5], 5)}</p>
-	</div>
-
-
 </div>
 
 {#if place.children[0]}
