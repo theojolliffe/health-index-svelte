@@ -15,7 +15,9 @@ mixin firstSen(i)
             | lowest score for
     else
         | saw England’s
-        | #[+value(subDomain[i].hlRank, {'ORDINAL_TEXTUAL':true})] greatest #[+value(subDomain[i].pos)] in 
+        if (subDomain[i].hlRank>1)
+            | #[+value(subDomain[i].hlRank, {'ORDINAL_TEXTUAL':true})] 
+        | greatest #[+value(subDomain[i].pos)] in 
     i #[+value((subDomain[i].Measure).toLowerCase())] 
     i 
     if (subDomain[i].hlRankType=="Change1year Rank")

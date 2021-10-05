@@ -11,7 +11,7 @@
         let neg = place.priority2018.Lowest.map(e => { e['pos'] = 'decline'; return e });
         let priorities = pos.concat(neg)
         let subDomains = priorities.filter(e => { 
-            return ((e['Index level']=="Subdomain")&(e['Measure']!="Unemployment")) 
+            return ((e['Index level']=="Subdomain")&(e['Measure']!="Crime")&(e['Measure']!="Unemployment")) 
         });
         let imprDecl = []
         subDomains.sort(function(a, b) { return a.hlRank - b.hlRank })
@@ -28,6 +28,7 @@
                 imprDecl.push(s.pos)
             }
         }
+        console.log('imprDecl', imprDecl)
         function indicatorRank(obj) {
             let indis = []
             for (let i = 0; i < subDomains.length; i++) { 
@@ -41,7 +42,7 @@
                 })
                 indis.push(objArr) }
             return indis }
-        console.log("indicatorRank(place.data)", indicatorRank(place.data))
+        console.log("indicatorRank", indicatorRank(place.data))
 
         let res = rosaenlg_en_US.render(strings, {
             language: 'en_UK',
